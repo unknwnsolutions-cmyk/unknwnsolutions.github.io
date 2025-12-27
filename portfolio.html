@@ -1,49 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unknown Solutions - Portfolio</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unknown Solutions - Portfolio</title>
+  <style>
+    /* RESET */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    /* VARIABLES */
+    :root {
+      --bg-color: #111;
+      --accent-color: #FFD700;
+      --text-color: #fff;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+    /* GLOBAL STYLES */
+    body {
+      margin: 0;
+      padding-top: 60px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text-color);
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+      background-size: 600% 600%;
+      animation: gradientBG 20s ease infinite;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--accent-color);
+      text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+    }
+    nav .nav-links {
+      list-style: none;
+      display: flex;
+    }
+    nav .nav-links li {
+      margin-left: 20px;
+    }
+    nav .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav .nav-links a:hover {
+      color: var(--accent-color);
+    }
+    nav input[type=checkbox] {
+      display: none;
+    }
+    nav label.nav-toggle {
+      display: none;
+      font-size: 28px;
+      color: var(--text-color);
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav .nav-links {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.9);
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        flex-direction: column;
+        padding-top: 60px;
+        transition: right 0.3s ease;
+      }
+      nav .nav-links li {
+        margin: 20px 0;
+        text-align: center;
+      }
+      nav label.nav-toggle {
+        display: block;
+      }
+      nav input[type=checkbox]:checked ~ .nav-links {
+        right: 0;
+      }
+    }
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent-color);
+      color: #111;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    /* Portfolio Section */
+    #portfolio {
+      padding: 4rem 2rem;
+    }
+    #portfolio h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--accent-color);
+      text-shadow: 0 0 5px var(--accent-color);
+    }
+    .portfolio-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .portfolio-item {
+      position: relative;
+      max-width: 300px;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+    .portfolio-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+    .portfolio-item .overlay {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-color);
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <header class="topbar">
-        <img src="assets/images/logo.png" alt="Logo" class="logo-img">
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="services.html">Services</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="register.html">Register</a>
-            <a href="login.html">Login</a>
-            <a href="contact.html">Contact</a>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <h1>Portfolio</h1>
-        <p>See the amazing work we've done for our clients.</p>
-    </section>
+  <nav>
+    <div class="logo">Unknown Solutions</div>
+    <input type="checkbox" id="nav-toggle">
+    <label for="nav-toggle" class="nav-toggle">&#9776;</label>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="register.html">Register</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-    <section class="cards">
-        <div class="card">
-            <img src="assets/images/portfolio1.png" alt="Portfolio 1">
-            <h3>Client Project 1</h3>
-            <p>Branding and marketing campaign for a local shop.</p>
-        </div>
-        <div class="card">
-            <img src="assets/images/portfolio2.png" alt="Portfolio 2">
-            <h3>Client Project 2</h3>
-            <p>Product photography and social media strategy.</p>
-        </div>
-        <div class="card">
-            <img src="assets/images/portfolio3.png" alt="Portfolio 3">
-            <h3>Client Project 3</h3>
-            <p>Full business identity design and consultation.</p>
-        </div>
-    </section>
+  <section id="portfolio">
+    <h1>Our Portfolio</h1>
+    <div class="portfolio-gallery">
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/333333/FFD700?text=Project+1" alt="Project 1">
+        <div class="overlay">Project 1</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/444444/FFD700?text=Project+2" alt="Project 2">
+        <div class="overlay">Project 2</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/555555/FFD700?text=Project+3" alt="Project 3">
+        <div class="overlay">Project 3</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/666666/FFD700?text=Project+4" alt="Project 4">
+        <div class="overlay">Project 4</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/777777/FFD700?text=Project+5" alt="Project 5">
+        <div class="overlay">Project 5</div>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://via.placeholder.com/300x200/888888/FFD700?text=Project+6" alt="Project 6">
+        <div class="overlay">Project 6</div>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        &copy; 2025 Unknown Solutions. All rights reserved.
-    </footer>
+  <footer>
+    <p>&copy; 2025 Unknown Solutions. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
